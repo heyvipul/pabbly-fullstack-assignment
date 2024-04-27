@@ -1,0 +1,17 @@
+.main-container{
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 10px 0;
+}
+.main-container > div button{
+    padding: 5px 20px;
+    font-size: 15px;
+    background: rgb(74,83,215);
+    border: none;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
