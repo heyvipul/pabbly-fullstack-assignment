@@ -30,7 +30,7 @@
 
 .dashboard-container > .second-div{
     width: 30%;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 .dashboard-container  .btn{
@@ -43,6 +43,17 @@
     border: none;
     color: white;
     border-radius: 10px;
+}
 
+@media (max-width: 500px) {
+    .dashboard-container > .first-div{
+        width: 100%;
+    }
+    .dashboard-container > .second-div{
+        display: none;
+    }
+    .dashboard-container > .first-div > .task-cards{
+        grid-template-columns: repeat(1,1fr);
+    }
 }
 

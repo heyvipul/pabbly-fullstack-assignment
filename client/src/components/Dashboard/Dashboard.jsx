@@ -3,6 +3,7 @@ import AddTask from '../AddTask/AddTask'
 import Navbar from '../Navbar/Navbar'
 import "./Dashboard.css"
 import axios from "axios"
+import toast, { Toaster } from 'react-hot-toast';
 
 const Dashboard = () => {
 
@@ -30,14 +31,14 @@ const Dashboard = () => {
     try {
       const token = localStorage.getItem("token") || null;
       if(!token){
-        return alert("User not Authenticated")
+        return toast.error("User not Authenticated")
       }
       await axios.delete(`http://localhost:8080/task/${id}`);
-      alert("Task deleted successfully");
+      toast.success("Task deleted successfully");
       getTask();
     } catch (error) {
       console.error("Error deleting task:", error);
-      alert("Error deleting task");
+      toast.error("Error deleting task");
     }
   };
 
@@ -45,7 +46,7 @@ const Dashboard = () => {
   return (
     <>
       <Navbar />
-      <AddTask />
+      <AddTask getTask={getTask} />
       <div className='dashboard-container'>
         <div className='first-div'>
           <h4>InProgress</h4>
@@ -59,6 +60,7 @@ const Dashboard = () => {
                   <p>dueDate: {ele.dueDate}</p>
                   <p>status: <span style={{ color: "green", fontWeight: "bold" }}>{ele.status}</span></p>
                   <button className='btn'>Edit</button>
+                  <Toaster />
                   <button className='btn' onClick={() => handleDeleteTask(ele._id)}>Delete</button>
                 </div>
               })

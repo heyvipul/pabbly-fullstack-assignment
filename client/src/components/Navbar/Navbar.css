@@ -27,6 +27,16 @@
     cursor: pointer;
 }
 
+.navbar > .btn{
+  padding: 5px 20px;
+  font-size: 15px;
+  background: rgb(74,83,215);
+  border: none;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
 /* popup css */
 .backdrop {
     position: fixed;
@@ -63,4 +73,13 @@
     width: 280px;
     padding: 5px;
     margin-bottom: 10px;
+  }
+
+  @media (max-width: 500px) {
+    .navbar  .nav-second > div input{
+      display: none;
+    }
+    .navbar  .nav-second > button{
+      margin-right: 10px;
+    }
   }

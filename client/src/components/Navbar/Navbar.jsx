@@ -2,6 +2,7 @@ import axios from "axios";
 import "./Navbar.css"
 import React, { useEffect, useState } from 'react'
 import { IoIosSearch } from "react-icons/io";
+import toast, { Toaster } from 'react-hot-toast';
 
 const Navbar = () => {
 
@@ -48,10 +49,10 @@ const Navbar = () => {
       setuserLoggedIn(true);
       setshowPopup(false)
 
-      alert("login successfull!")
+      toast.success("login successfull!")
     } catch (error) {
       console.log(error);
-      alert("login failed")
+      toast.error("login failed")
     }
   };
 
@@ -59,8 +60,10 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    alert("Logout successful!");
-    window.location.reload();
+    toast.success("Logout successful!");
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   };
 
   //Singup Input
@@ -80,7 +83,7 @@ const Navbar = () => {
         password: signupDetails.password1
       })
       console.log(data);
-      alert("Signup successfull! Pls Login")
+      toast.success("Signup successfull! Pls Login")
       setSignupDetails({
         email: "",
         username1: "",
@@ -88,7 +91,7 @@ const Navbar = () => {
       });
     } catch (error) {
       console.log(error);
-      alert("login failed")
+      toast.error("login failed")
     }
   };
 
@@ -118,6 +121,7 @@ const Navbar = () => {
 
         </div>
       </div>
+      <Toaster/>
       {showPopup && (
         <React.Fragment>
           <div className='backdrop' ></div>
@@ -137,13 +141,13 @@ const Navbar = () => {
                   value={loginDetails.password}
                   onChange={handleChange} />
 
-                <button type="submit">Login</button>
+                <button className="btn" type="submit">Login</button>
                 <p>Don't have an account? <span
                   style={{ cursor: "pointer", color: "rgb(1,112,210)", fontWeight: "bold" }} onClick={() => setToggle(!toggle)}>Signup</span> </p>
               </form>
               <div>
                 <br />
-                <button onClick={() => setshowPopup(!showPopup)}>Cancel</button>
+                <button className="btn" onClick={() => setshowPopup(!showPopup)}>Cancel</button>
               </div>
             </div> :
               <div className='store-add-div'>
@@ -167,13 +171,13 @@ const Navbar = () => {
                     value={signupDetails.password1}
                     onChange={handleChange1} />
 
-                  <button type="submit">Signup</button>
+                  <button className="btn" type="submit">Signup</button>
                   <p>Already have an account? <span
                     style={{ cursor: "pointer", color: "rgb(1,112,210)", fontWeight: "bold" }} onClick={() => setToggle(!toggle)}>Login</span> </p>
                 </form>
                 <div>
                   <br />
-                  <button onClick={() => setshowPopup(!showPopup)}>Cancel</button>
+                  <button className="btn" onClick={() => setshowPopup(!showPopup)}>Cancel</button>
                 </div>
               </div>
           }
