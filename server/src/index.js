@@ -4,6 +4,7 @@ const cors = require("cors");
 const AuthRouter = require("./auth/authentication")
 const TaskRouter = require("./router/Task")
 const main  = require("./config/mongoose");
+const verifyToken = require("./middleware/authmiddleware")
 require("dotenv").config();
 const PORT = process.env.PORT || 8000
 
@@ -21,7 +22,7 @@ app.get("/",(req,res) => {
 })
 
 app.use("/user",AuthRouter);
-app.use("/task",TaskRouter)
+app.use("/task",verifyToken,TaskRouter)
 
 
 
