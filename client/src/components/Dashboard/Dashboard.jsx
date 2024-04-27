@@ -11,7 +11,7 @@ const Dashboard = () => {
 
   const getTask = async () => {
     try {
-      const { data } = await axios.get("http://localhost:8080/task")
+      const { data } = await axios.get("https://pabbly-backend.onrender.com/task")
       // const data = response
       console.log(data);
       setAllTask(data);
@@ -33,7 +33,7 @@ const Dashboard = () => {
       if(!token){
         return toast.error("User not Authenticated")
       }
-      await axios.delete(`http://localhost:8080/task/${id}`);
+      await axios.delete(`https://pabbly-backend.onrender.com/${id}`);
       toast.success("Task deleted successfully");
       getTask();
     } catch (error) {

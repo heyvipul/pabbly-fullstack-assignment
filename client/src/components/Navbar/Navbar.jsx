@@ -39,7 +39,7 @@ const Navbar = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("http://localhost:8080/user/login", {
+      const { data } = await axios.post("https://pabbly-backend.onrender.com/user/login", {
         username: loginDetails.username,
         password: loginDetails.password
       })
@@ -78,7 +78,7 @@ const Navbar = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("http://localhost:8080/user/register", {
+      const { data } = await axios.post("https://pabbly-backend.onrender.com/user/register", {
         username: signupDetails.username1,
         password: signupDetails.password1
       })
