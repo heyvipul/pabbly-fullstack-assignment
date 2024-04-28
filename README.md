@@ -6,9 +6,9 @@
 
 ![image](https://github.com/heyvipul/pabbly-fullstack-assignment/assets/131906819/7ab148c1-6329-4593-8867-a21fc9ffb7ea)
 
-![image](https://github.com/heyvipul/pabbly-fullstack-assignment/assets/131906819/44cd5331-e0f8-49ed-acce-3521ea4b6fb2)
-
 ![image](https://github.com/heyvipul/pabbly-fullstack-assignment/assets/131906819/93bb2029-0824-46cc-84b6-2d9383786c24)
+
+![image](https://github.com/heyvipul/pabbly-fullstack-assignment/assets/131906819/44cd5331-e0f8-49ed-acce-3521ea4b6fb2)
 
 
 <h2>🛠️ Installation Steps:</h2>
