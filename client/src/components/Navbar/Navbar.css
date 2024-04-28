@@ -60,6 +60,7 @@
     height: 450px;
     padding: 25px 0;
     background: white;
+    border: 1px solid rgb(74,83,215);
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     /* display: none; */
