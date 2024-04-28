@@ -41,14 +41,17 @@ const Dashboard = () => {
 
   // Delete Function
   const handleDeleteTask = async (id) => {
+    // console.log(id);
     try {
       const token = localStorage.getItem("token") || null;
       if (!token) {
         return toast.error("User not Authenticated")
       }
-      await axios.delete(`https://pabbly-backend.onrender.com/${id}`);
+      await axios.delete(`https://pabbly-backend.onrender.com/task/${id}`);
       toast.success("Task deleted successfully");
-      getTask();
+      setTimeout(() => {
+        getTask();
+      }, 1000);
     } catch (error) {
       console.error("Error deleting task:", error);
       toast.error("Error deleting task");
