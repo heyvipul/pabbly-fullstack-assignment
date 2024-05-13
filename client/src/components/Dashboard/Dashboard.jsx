@@ -109,11 +109,15 @@ const Dashboard = () => {
 
   //Handle Status Change
   const handleStatusChange = (taskId) => {
+    const token = localStorage.getItem("token") || null;
+    if (!token) {
+      return toast.error("User not Authenticated")
+    }
     toast.success("Task completed!")
     setTimeout(() => {
       const taskIndex = allTask.findIndex(task => task._id === taskId);
       if (taskIndex !== -1) {
-        
+
         const updatedAllTask = [...allTask];
         const removedTask = updatedAllTask.splice(taskIndex, 1)[0];
 
