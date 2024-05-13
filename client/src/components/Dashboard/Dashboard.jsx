@@ -13,6 +13,7 @@ const Dashboard = () => {
   const [taskId, setTaskId] = useState(null)
   const [loading, setLoading] = useState(true)
   const [showPopup, setshowPopup] = useState(false)
+  const [completedTask, setCompletedTask] = useState([])
   const [editDetails, setEditDetails] = useState({
     title: "",
     description: "",
@@ -24,9 +25,9 @@ const Dashboard = () => {
   const getTask = async () => {
     try {
       setLoading(true)
-      const { data } = await axios.get("https://pabbly-backend.onrender.com/task")
+      const { data } = await axios.get("http://localhost:8080/task")
       // const data = response
-      console.log(data);
+      // console.log(data);
       setAllTask(data);
       setLoading(false)
     } catch (error) {
@@ -41,13 +42,13 @@ const Dashboard = () => {
 
   // Delete Function
   const handleDeleteTask = async (id) => {
-    // console.log(id);
+
     try {
       const token = localStorage.getItem("token") || null;
       if (!token) {
         return toast.error("User not Authenticated")
       }
-      await axios.delete(`https://pabbly-backend.onrender.com/task/${id}`);
+      await axios.delete(`http://localhost:8080/task/${id}`);
       toast.success("Task deleted successfully");
       setTimeout(() => {
         getTask();
@@ -57,6 +58,8 @@ const Dashboard = () => {
       toast.error("Error deleting task");
     }
   };
+
+
 
   //Edit functionality
   const handleChange = (e) => {
@@ -73,8 +76,11 @@ const Dashboard = () => {
     if (!token) {
       return toast.error("User not Authenticated")
     }
+    else if (editDetails.title === "" || editDetails.description === "" || editDetails.dueDate === "") {
+      return toast.error("Input fields are empty!")
+    }
     try {
-      await axios.put(`https://pabbly-backend.onrender.com/task/${taskId}`, {
+      await axios.put(`http://localhost:8080/task/${taskId}`, {
         title: editDetails.title,
         description: editDetails.description,
         dueDate: editDetails.dueDate,
@@ -100,20 +106,26 @@ const Dashboard = () => {
     }
   };
 
+
   //Handle Status Change
-  const handleStatusChange = async (statusID) => {
-    try {
-        const updatedTask = allTask.find(task => task._id === taskId);
-        if (!updatedTask) {
-            throw new Error("Task not found");
-        }
-        updatedTask.status = (updatedTask.status === "pending") ? "completed" : "pending";
-        await axios.put(`https://pabbly-backend.onrender.com/task/${statusID}`, { status: updatedTask.status });
-        setAllTask(prevState => prevState.map(task => (task._id === taskId ? updatedTask : task)));
-    } catch (error) {
-        console.error("Error updating task status:", error);
-    }
-};
+  const handleStatusChange = (taskId) => {
+    toast.success("Task completed!")
+    setTimeout(() => {
+      const taskIndex = allTask.findIndex(task => task._id === taskId);
+      if (taskIndex !== -1) {
+        
+        const updatedAllTask = [...allTask];
+        const removedTask = updatedAllTask.splice(taskIndex, 1)[0];
+
+        removedTask.status = "completed";
+
+        setCompletedTask(prevCompletedTasks => [...prevCompletedTasks, removedTask]);
+        setAllTask(updatedAllTask);
+      }
+
+    }, 1000);
+
+  };
 
 
   return (
@@ -141,7 +153,7 @@ const Dashboard = () => {
                     <p>Title :{ele.title}</p>
                     <p>Description: {ele.description}</p>
                     <p>dueDate: {ele.dueDate}</p>
-                    <button className='btn'>status: <span style={{ fontWeight: "bold" }}>{ele.status}</span></button>
+                    <button onClick={() => handleStatusChange(ele._id)} className='btn'>status: <span style={{ fontWeight: "bold" }}>{ele.status}</span></button>
                     <button onClick={() => { setshowPopup(!showPopup), setTaskId(ele._id) }} className='btn'>Edit</button>
                     <Toaster />
                     <button className='btn' onClick={() => handleDeleteTask(ele._id)}>Delete</button>
@@ -154,13 +166,14 @@ const Dashboard = () => {
         </div>
         <div className='second-div'>
           <h4>Completed</h4>
-          {allTask.filter(task => task.status === "completed").map((completedTask, index) => (
+          {completedTask.map((task, index) => (
             <div key={index}>
-              <p style={{ color: completedTask.priority === "high" ? "red" : "green", fontWeight: "bold" }}>{completedTask.priority}</p>
-              <p>Title: {completedTask.title}</p>
-              <p>Description: {completedTask.description}</p>
-              <p>Due Date: {completedTask.dueDate}</p>
-              <button className='btn' onClick={() => handleStatusChange(completedTask._id)}>Status: <span style={{ fontWeight: "bold" }}>{completedTask.status}</span></button>
+              <p style={{ color: task.priority === "high" ? "red" : "green", fontWeight: "bold" }}>{task.priority}</p>
+              <p>Title: {task.title}</p>
+              <p>Description: {task.description}</p>
+              <p>Due Date: {task.dueDate}</p>
+              <button className='btn'>Status: <span style={{ fontWeight: "bold" }}>{task.status}</span></button>
+              <button className='btn' onClick={() => handleDeleteTask(ele._id)}>Delete</button>
             </div>
           ))}
         </div>

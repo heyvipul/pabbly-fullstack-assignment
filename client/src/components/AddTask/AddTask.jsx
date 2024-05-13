@@ -28,10 +28,12 @@ const AddTask = ({getTask}) => {
       if(!token){
         return  toast.error("User not Authenticated")
       }
-      const { data } = await axios.post("https://pabbly-backend.onrender.com/task/create", taskDetails);
+      else if(taskDetails.title === "" || taskDetails.dueDate === "" || taskDetails.description === ""){
+        return toast.error("Input fields are empty!")
+      }
+      const { data } = await axios.post("http://localhost:8080/task/create", taskDetails);
       console.log(data);
       toast.success("Task created successfully!");
-      // Optionally, you can reset the form after successful submission
       setTaskDetails({
         title: "",
         description: "",

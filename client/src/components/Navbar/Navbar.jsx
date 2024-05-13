@@ -38,8 +38,11 @@ const Navbar = () => {
   //Login function
   const handleLogin = async (e) => {
     e.preventDefault();
+    if(loginDetails.username === "" || loginDetails.password === "") {
+      return toast.error("Input fields are empty!")
+    }
     try {
-      const { data } = await axios.post("https://pabbly-backend.onrender.com/user/login", {
+      const { data } = await axios.post("http://localhost:8080/user/login", {
         username: loginDetails.username,
         password: loginDetails.password
       })
@@ -77,13 +80,17 @@ const Navbar = () => {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
+    if(signupDetails.email === "" || signupDetails.username1 === "" || signupDetails.password1 === "") {
+      return toast.error("Input fields are empty!")
+    }
     try {
-      const { data } = await axios.post("https://pabbly-backend.onrender.com/user/register", {
+      const { data } = await axios.post("http://localhost:8080/user/register", {
         username: signupDetails.username1,
         password: signupDetails.password1
       })
-      console.log(data);
+      // console.log(data);
       toast.success("Signup successfull! Pls Login")
+      setToggle(!toggle)
       setSignupDetails({
         email: "",
         username1: "",
