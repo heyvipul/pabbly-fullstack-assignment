@@ -42,7 +42,7 @@ const Navbar = () => {
       return toast.error("Input fields are empty!")
     }
     try {
-      const { data } = await axios.post("http://localhost:8080/user/login", {
+      const { data } = await axios.post("https://pabbly-backend.onrender.com/user/login", {
         username: loginDetails.username,
         password: loginDetails.password
       })
@@ -84,7 +84,7 @@ const Navbar = () => {
       return toast.error("Input fields are empty!")
     }
     try {
-      const { data } = await axios.post("http://localhost:8080/user/register", {
+      const { data } = await axios.post("https://pabbly-backend.onrender.com/user/register", {
         username: signupDetails.username1,
         password: signupDetails.password1
       })

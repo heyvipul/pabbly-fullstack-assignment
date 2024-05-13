@@ -31,7 +31,7 @@ const AddTask = ({getTask}) => {
       else if(taskDetails.title === "" || taskDetails.dueDate === "" || taskDetails.description === ""){
         return toast.error("Input fields are empty!")
       }
-      const { data } = await axios.post("http://localhost:8080/task/create", taskDetails);
+      const { data } = await axios.post("https://pabbly-backend.onrender.com/task/create", taskDetails);
       console.log(data);
       toast.success("Task created successfully!");
       setTaskDetails({

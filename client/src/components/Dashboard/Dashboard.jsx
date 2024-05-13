@@ -25,7 +25,7 @@ const Dashboard = () => {
   const getTask = async () => {
     try {
       setLoading(true)
-      const { data } = await axios.get("http://localhost:8080/task")
+      const { data } = await axios.get("https://pabbly-backend.onrender.com/task")
       // const data = response
       // console.log(data);
       setAllTask(data);
@@ -48,7 +48,7 @@ const Dashboard = () => {
       if (!token) {
         return toast.error("User not Authenticated")
       }
-      await axios.delete(`http://localhost:8080/task/${id}`);
+      await axios.delete(`https://pabbly-backend.onrender.com/task/${id}`);
       toast.success("Task deleted successfully");
       setTimeout(() => {
         getTask();
@@ -80,7 +80,7 @@ const Dashboard = () => {
       return toast.error("Input fields are empty!")
     }
     try {
-      await axios.put(`http://localhost:8080/task/${taskId}`, {
+      await axios.put(`https://pabbly-backend.onrender.com/task/${taskId}`, {
         title: editDetails.title,
         description: editDetails.description,
         dueDate: editDetails.dueDate,
